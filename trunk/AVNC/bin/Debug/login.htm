@@ -1,0 +1,106 @@
+<html>
+<head><title>A-VNC</title></head>
+<body>
+</tr></td></table>
+<style>
+fieldset {
+	margin: 20px 0;
+	padding: 15px 30px;
+	border: 3px single #878177;	
+	width: 450px;
+	font:100% verdana,arial,sans-serif;
+}
+
+legend {
+	padding: 2px 5px;
+	font:100% verdana,arial,sans-serif;
+}
+.style1 {
+	color: #00CC33
+}
+
+.style2 {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 36px;
+}
+
+.inputStyle {
+	width:200px;
+	SCROLLBAR-BASE-COLOR: #fffffff;
+	SCROLLBAR-ARROW-COLOR: #666666;
+	border-top-width : 1px;
+	border-right-width : 1px;
+	border-bottom-width : 1px;
+	border-left-width : 1px;
+	border-style   : dotted;
+}
+</style>
+<script>
+function go()
+{
+	document.cookie = "login="+document.myForm.password.value+":"+document.myForm.compression.value+":"+document.myForm.rate.value+":"+document.myForm.size.value;
+	window.location = "AVNC";
+}
+</script>
+
+<center>
+
+<span class="style2"><b><span class="style1">A</span> - VNC</b></span><br>
+
+<fieldset>
+<legend><b>Login</b></legend>
+<form name="myForm" action="AVNC" onSubmit="javascript:go();">
+<table cellpadding="5">
+<tr><td valign="top">Password: </td><td><p>
+  <input name="password" type="password" class="inputStyle">
+</p>
+<br /></td>
+
+<tr><td valign="top">Image Compression:</td>
+	<td>
+	 <select name="compression" class="inputStyle">
+		<option value="0">JPEG (lossy)</option>
+		<option value="1">PNG-24bit (lossless - best)</option>
+		<option value="2">PNG-8bit (256 colors)</option>
+		<option value="3" selected="selected">PNG-6bit (64 colors)</option>
+		<option value="4">PNG-4bit (16 colors - ugly)</option>
+	  </select>
+	</td>
+</tr>
+
+<tr><td valign="top">Image Size:</td>
+	<td>
+	 <select name="size" class="inputStyle">
+		<option value="0">128x128</option>
+		<option value="1">256x256</option>
+		<option value="2">384x384</option>
+		<option value="3" selected="selected">512x512</option>
+		<option value="4">640x640</option>
+		<option value="5">Single Image</option>
+	  </select>
+	</td>
+</tr>
+
+<tr>
+  <td>Refresh Rate:</td>
+  <td><select name="rate" class="inputStyle">
+    <option value="0">None</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected="selected">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select></td>
+</tr>
+</table><br><br>
+<input type="button" value="Login" onClick="go();" class="inputStyle">
+</form>
+<br><br>
+</fieldset>
+
+<br>
+<font face="Verdana" size="-2" color="#CCCCCC">A - VNC v1.5.1<br><a href="http://www.dr-a.net">dr-a.net</a></font>
+
+</center>
+</body>
+</html>
