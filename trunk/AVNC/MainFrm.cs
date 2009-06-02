@@ -95,7 +95,6 @@ namespace AVNC
                         sBuffer = "";
                     }
 
-                    //HOW THE FUCK DID WE FORGET THIS?
                     //we must validate authentication on each request, not on each "GET /AVNC"
                     if ((!sBuffer.StartsWith("GET / ")) && (!validate(sBuffer)))
                     {
@@ -110,7 +109,8 @@ namespace AVNC
                         Thread.Sleep(250); //give UI a chance to update after mouse click
                         generateSnapshot();
 
-                        mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -121,7 +121,8 @@ namespace AVNC
                         Thread.Sleep(250); //give UI a chance to update after mouse drag
                         generateSnapshot();
 
-                        mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -132,7 +133,8 @@ namespace AVNC
                         Thread.Sleep(100); //give UI a chance to update after keystroke
                         generateSnapshot();
 
-                        mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -141,14 +143,16 @@ namespace AVNC
                     {
                         generateSnapshot();
 
-                        mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
+                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
                     }
                     else if (sBuffer.StartsWith("GET / "))
                     {
-                        mySocket.Send(Encoding.ASCII.GetBytes(loginPage()));
+                        //mySocket.Send(Encoding.ASCII.GetBytes(loginPage()));
+                        HTMLWrapper.sendHTML(loginPage(), mySocket);
                         mySocket.Close();
                     }
                     else if (sBuffer.StartsWith("GET /AVNC"))
