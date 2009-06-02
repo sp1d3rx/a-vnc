@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("A-VNC")]
 [assembly: AssemblyDescription("HTTP remote desktop using Ajax")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("dr-a.net")]
+[assembly: AssemblyCompany("http://www.anaimi.com/")]
 [assembly: AssemblyProduct("A-VNC")]
 [assembly: AssemblyCopyright("Copyright © Ahmad 2007")]
 [assembly: AssemblyTrademark("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.5.2.1")]
+[assembly: AssemblyFileVersion("1.5.2.1")]

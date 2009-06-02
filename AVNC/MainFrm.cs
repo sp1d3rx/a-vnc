@@ -104,7 +104,7 @@ namespace AVNC
                         sBuffer = "";
                     }
 
-                    if (sBuffer.StartsWith("GET /sendClick"))
+                    if ( ( sBuffer.StartsWith("GET /sendClick") ) && ( viewOnlyCB.Checked == false ))
                     {
                         doMouseClick(sBuffer);
                         Thread.Sleep(250); //give UI a chance to update after mouse click
@@ -115,7 +115,7 @@ namespace AVNC
 
                         imagesToSend = "IMGS";
                     }
-                    else if (sBuffer.StartsWith("GET /sendDrag")) // added drag mouse event...
+                    else if ((sBuffer.StartsWith("GET /sendDrag")) && (viewOnlyCB.Checked == false )) // added drag mouse event...
                     {
                         doMouseDrag(sBuffer);
                         Thread.Sleep(250); //give UI a chance to update after mouse drag
@@ -126,7 +126,7 @@ namespace AVNC
 
                         imagesToSend = "IMGS";
                     }
-                    else if (sBuffer.StartsWith("GET /sendStroke"))
+                    else if ((sBuffer.StartsWith("GET /sendStroke")) && (viewOnlyCB.Checked == false ))
                     {
                         doStroke(sBuffer);
                         Thread.Sleep(100); //give UI a chance to update after keystroke
@@ -404,7 +404,8 @@ namespace AVNC
 
                 return;
             }
-
+            radioBtnIPv6.Enabled = false;
+            radioBtnIPv4.Enabled = false;
             HTMLWrapper.setTitle("A-VNC");
 
             if (button1.Text == "Start")
@@ -417,9 +418,18 @@ namespace AVNC
                 //</required initailization>
 
                 logLV.Items.Clear(); // to keep the logLV's index concurrent with logs' index
-
-                server = new TcpListener(IPAddress.Any, Convert.ToInt32(listenPortTB.Value));
-                server.Start();
+                try
+                {
+                    if (radioBtnIPv6.Checked)
+                        server = new TcpListener(IPAddress.IPv6Any, Convert.ToInt32(listenPortTB.Value));
+                    if (radioBtnIPv4.Checked)
+                        server = new TcpListener(IPAddress.Any, Convert.ToInt32(listenPortTB.Value));
+                    server.Start();
+                }
+                catch (Exception ex)
+                {
+                    addLog("Error", "ServerStop: " + ex.ToString());
+                }
 
                 listeningThread = new Thread(new ThreadStart(startListening));
                 listeningThread.Start();
@@ -448,6 +458,8 @@ namespace AVNC
                 {
                     addLog("Error", "ServerStop: " + ex.ToString());
                 }
+                radioBtnIPv6.Enabled = true;
+                radioBtnIPv4.Enabled = true;
             }
         }
 
@@ -558,10 +570,13 @@ namespace AVNC
             //</build>
 
             //<build> array for settings checkboxes
-            char[] generalCBsettings = "000".ToCharArray();
+            char[] generalCBsettings = "000000".ToCharArray();
             if (windowsStartupCB.Checked) generalCBsettings[0] = '1';
             if (startListeningCB.Checked) generalCBsettings[1] = '1';
             if (minimizeWindowCB.Checked) generalCBsettings[2] = '1';
+            if (radioBtnIPv4.Checked) generalCBsettings[3] = '1';
+            if (radioBtnIPv6.Checked) generalCBsettings[4] = '1';
+            if (viewOnlyCB.Checked) generalCBsettings[5] = '1';
             //</build>
 
             rk = rk.OpenSubKey("SOFTWARE\\", true);
@@ -609,6 +624,10 @@ namespace AVNC
                 if (generalCBsettings[0] == '0') windowsStartupCB.Checked = false;
                 if (generalCBsettings[1] == '0') startListeningCB.Checked = false;
                 if (generalCBsettings[2] == '0') minimizeWindowCB.Checked = false;
+                if (generalCBsettings[3] == '1') radioBtnIPv4.Checked = true;
+                if (generalCBsettings[4] == '1') radioBtnIPv6.Checked = true;
+                if (generalCBsettings[5] == '0') viewOnlyCB.Checked = false;
+                
                 //</load>
 
                 rk.Close();
@@ -619,6 +638,9 @@ namespace AVNC
                 windowsStartupCB.Checked = false;
                 startListeningCB.Checked = false;
                 minimizeWindowCB.Checked = false;
+                radioBtnIPv4.Checked = true;
+                radioBtnIPv6.Checked = false;
+                viewOnlyCB.Checked = false;
 
                 indexReqCB.Checked = true;
                 updateCB.Checked = false;
@@ -637,6 +659,11 @@ namespace AVNC
         private void CBSettings_CheckedChanged(object sender, EventArgs e)
         {
             setRegistryValues();
+        }
+
+        private void LogMenu_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

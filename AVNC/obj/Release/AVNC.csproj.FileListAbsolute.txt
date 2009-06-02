@@ -24,3 +24,16 @@ C:\Users\Ahmad\Documents\Visual Studio 2008\Projects\AVNC\AVNC\obj\Release\AVNC.
 C:\Users\Ahmad\Documents\Visual Studio 2008\Projects\AVNC\AVNC\obj\Release\AVNC.application
 C:\Users\Ahmad\Documents\Visual Studio 2008\Projects\AVNC\AVNC\obj\Release\AVNC.exe
 C:\Users\Ahmad\Documents\Visual Studio 2008\Projects\AVNC\AVNC\obj\Release\AVNC.pdb
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.exe
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.pdb
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\bin\Release\AVNC.exe.manifest
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\bin\Release\AVNC.application
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\bin\Release\AVNC.exe
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\bin\Release\AVNC.pdb
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.LogViewer.resources
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.MainFrm.resources
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.Properties.Resources.resources
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.csproj.GenerateResource.Cache
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.exe.manifest
+C:\Documents and Settings\dwilson3.MHS\My Documents\Projects\AVNC-Source\a-vnc-svn\AVNC\obj\Release\AVNC.application
