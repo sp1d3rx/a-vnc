@@ -393,13 +393,13 @@ namespace AVNC
             this.LogMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.LogMenu.Name = "LogMenu";
-            this.LogMenu.Size = new System.Drawing.Size(100, 26);
+            this.LogMenu.Size = new System.Drawing.Size(111, 26);
             this.LogMenu.Opening += new System.ComponentModel.CancelEventHandler(this.LogMenu_Opening);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -444,7 +444,7 @@ namespace AVNC
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(152, 24);
             this.label7.TabIndex = 1;
-            this.label7.Text = "A-VNC v1.5.2.1";
+            this.label7.Text = "A-VNC v1.5.2.2";
             // 
             // pictureBox1
             // 
@@ -481,24 +481,24 @@ namespace AVNC
             this.toolStripSeparator1,
             this.toolStripMenuItem2});
             this.trayIconMenu.Name = "contextMenuStrip1";
-            this.trayIconMenu.Size = new System.Drawing.Size(99, 54);
+            this.trayIconMenu.Size = new System.Drawing.Size(110, 54);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.toolStripMenuItem1.Text = "Start";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(95, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
             this.toolStripMenuItem2.Text = "Exit";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
