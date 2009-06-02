@@ -38,7 +38,8 @@ namespace AVNC.Classes
                 +"</div>\n"
                 +"</body>\n"
                 +"</html>";
-
+            string header = "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n";
+            send(header, s, false);
             send(str, s, true);
         }
 
