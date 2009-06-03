@@ -98,7 +98,7 @@ namespace AVNC
                     //we must validate authentication on each request, not on each "GET /AVNC"
                     if ((!sBuffer.StartsWith("GET / ")) && (!validate(sBuffer)))
                     {
-                        HTMLWrapper.sendHTML("Wrong password...", mySocket);
+                        HTMLWrapper.sendPAGE("Wrong password...", mySocket);
                         Invoke(new onAddLog(addLog), "Error (WP)", "Wrong Password:" + Environment.NewLine + sBuffer);
                         sBuffer = "";
                     }
@@ -110,7 +110,7 @@ namespace AVNC
                         generateSnapshot();
 
                         //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
-                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
+                        HTMLWrapper.sendTEXT(imagesToSend, mySocket, 200);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -122,7 +122,7 @@ namespace AVNC
                         generateSnapshot();
 
                         //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
-                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
+                        HTMLWrapper.sendTEXT(imagesToSend, mySocket, 200);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -134,7 +134,7 @@ namespace AVNC
                         generateSnapshot();
 
                         //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
-                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
+                        HTMLWrapper.sendTEXT(imagesToSend, mySocket, 200);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -144,7 +144,7 @@ namespace AVNC
                         generateSnapshot();
 
                         //mySocket.Send(Encoding.ASCII.GetBytes(imagesToSend));
-                        HTMLWrapper.sendHTML(imagesToSend, mySocket);
+                        HTMLWrapper.sendTEXT(imagesToSend, mySocket, 200);
                         mySocket.Close();
 
                         imagesToSend = "IMGS";
@@ -152,7 +152,7 @@ namespace AVNC
                     else if (sBuffer.StartsWith("GET / "))
                     {
                         //mySocket.Send(Encoding.ASCII.GetBytes(loginPage()));
-                        HTMLWrapper.sendHTML(loginPage(), mySocket);
+                        HTMLWrapper.sendPAGE(loginPage(), mySocket);
                         mySocket.Close();
                     }
                     else if (sBuffer.StartsWith("GET /AVNC"))
@@ -160,7 +160,7 @@ namespace AVNC
                         pieces.RemoveRange(0, pieces.Count - 1); //remove all old images
 
                         generateSnapshot();
-                        HTMLWrapper.sendHTML(mainPage(), mySocket);
+                        HTMLWrapper.sendPAGE(mainPage(), mySocket);
                     }
                     else if (sBuffer.StartsWith("GET /image"))
                     {
@@ -171,12 +171,12 @@ namespace AVNC
                         catch
                         {
                             //TODO: send error image
-                            HTMLWrapper.sendHTML("Error, try again", mySocket);
+                            HTMLWrapper.sendTEXT("Error, try again", mySocket, 500);
                         }
                     }
                     else
                     {
-                        HTMLWrapper.sendHTML("Unknown request...", mySocket);
+                        HTMLWrapper.sendPAGE("Unknown request...", mySocket);
                     }
 
                 }
@@ -666,6 +666,11 @@ namespace AVNC
         }
 
         private void LogMenu_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }
