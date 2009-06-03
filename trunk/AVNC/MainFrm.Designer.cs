@@ -444,7 +444,8 @@ namespace AVNC
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(152, 24);
             this.label7.TabIndex = 1;
-            this.label7.Text = "A-VNC v1.5.2.2";
+            this.label7.Text = "A-VNC v1.5.2.3";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // pictureBox1
             // 

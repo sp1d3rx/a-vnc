@@ -29,7 +29,27 @@ namespace AVNC.Classes
             {}
         }
 
-        public static void sendHTML(string str, Socket s)
+        public static void sendTEXT(string str, Socket s, int code)
+        {
+            string header = "";
+            switch (code)
+            {
+                case 200:
+                    header = "HTTP/1.0 200 OK\nContent-Type: text/plain\n\n";
+                    break;
+                case 500:
+                    header = "HTTP/1.0 500 ERROR\nContent-Type: text/plain\n\n";
+                    break;
+                default:
+                    header = "HTTP/1.0 200 OK\nContent-Type: text/plain\n\n";
+                    break;
+
+            }
+            send(header, s, false);
+            send(str, s, true);
+        }
+
+        public static void sendPAGE(string str, Socket s)
         {
             str = "<html>\n"
                 +"<head><title>" + title + "</title><meta http-equiv=\"imagetoolbar\" content=\"no\" /></head>\n"
@@ -38,7 +58,7 @@ namespace AVNC.Classes
                 +"</div>\n"
                 +"</body>\n"
                 +"</html>";
-            string header = "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n";
+            string header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n";
             send(header, s, false);
             send(str, s, true);
         }
@@ -59,7 +79,7 @@ namespace AVNC.Classes
                 contentType = "image/png";
             }
 
-            string header = "HTTP/1.0 200 OK\r\nContent-Type: " + contentType + "\r\nAccept-Ranges: none\r\nExpires: -1\r\nPragma: no-cache\r\nCache-Control: no-cache\r\n\r\n";
+            string header = "HTTP/1.0 200 OK\nContent-Type: " + contentType + "\nAccept-Ranges: none\nExpires: -1\nPragma: no-cache\nCache-Control: no-cache\n\n";
             send(header, s, false);
             send(ms.ToArray(), s, true); // send image and close...
         }

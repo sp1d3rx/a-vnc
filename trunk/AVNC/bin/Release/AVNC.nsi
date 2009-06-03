@@ -6,7 +6,7 @@
 ;--------------------------------
 
 ; The name of the installer
-Name "A-VNC 1.5.2.2"
+Name "A-VNC 1.5.2.3"
 
 ; The file to write
 OutFile "AVNC-Installer.exe"
