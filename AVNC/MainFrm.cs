@@ -607,24 +607,42 @@ namespace AVNC
             if (viewOnlyCB.Checked) generalCBsettings[5] = '1';
             //</build>
 
-            rk = rk.OpenSubKey("SOFTWARE\\", true);
-            rk = rk.CreateSubKey("AVNC");
+            try
+            {
+                rk = rk.OpenSubKey("SOFTWARE\\", true); //may throw Exception if user lacks rights
+                rk = rk.CreateSubKey("AVNC");
 
-            rk.SetValue("port", listenPortTB.Value.ToString());
-            rk.SetValue("password", loginPasswordTB.Text);
-            rk.SetValue("logSettings", new string(logCBsettings));
-            rk.SetValue("generalSettings", new string(generalCBsettings));
+                rk.SetValue("port", listenPortTB.Value.ToString());
+                rk.SetValue("password", loginPasswordTB.Text);
+                rk.SetValue("logSettings", new string(logCBsettings));
+                rk.SetValue("generalSettings", new string(generalCBsettings));
 
-            //<Set> or unset windows startup
-            rk = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                //<Set> or unset windows startup
+                //eventually you should probably seperate this into seperate try{} since permisions 
+                //on this key may differ from permissions above key and handle the failures differently
+                rk = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-            if (windowsStartupCB.Checked)
-                rk.SetValue("A-VNC", "\""+Application.ExecutablePath.ToString()+"\"");
-            else
-                rk.DeleteValue("A-VNC", false);
-            //</Set> or unset
+                if (windowsStartupCB.Checked)
+                    rk.SetValue("A-VNC", "\""+Application.ExecutablePath.ToString()+"\"");
+                else
+                    rk.DeleteValue("A-VNC", false);
+                //</Set> or unset
 
-            rk.Close();
+                rk.Close();
+            }
+            catch (Exception)
+            {
+                //user lacks registry permision so grey you options
+                listenPortTB.Enabled = false;
+                windowsStartupCB.Enabled = false;
+                startListeningCB.Enabled = false;
+                minimizeWindowCB.Enabled = false;
+                radioBtnIPv4.Enabled = false;
+                radioBtnIPv6.Enabled = false;
+                viewOnlyCB.Enabled = false;
+
+            }
+
         }
 
         private void getRegistryValues()
@@ -632,7 +650,7 @@ namespace AVNC
             try
             {
                 RegistryKey rk = Registry.LocalMachine;
-                rk = rk.OpenSubKey("SOFTWARE\\AVNC\\", true);
+                rk = rk.OpenSubKey("SOFTWARE\\AVNC\\", false); //doesn't need write access
 
                 listenPortTB.Value = Convert.ToDecimal((string)rk.GetValue("port"));
                 loginPasswordTB.Text = (string)rk.GetValue("password");
