@@ -12,6 +12,7 @@ using AVNC.Classes;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Threading;
+using System.Security.Cryptography;
 using Microsoft.Win32;
 
 namespace AVNC
@@ -28,6 +29,7 @@ namespace AVNC
         private int sliceWidth = Screen.PrimaryScreen.Bounds.Width, sliceHeight = Screen.PrimaryScreen.Bounds.Height;
         private Thread listeningThread;
         private string clientIP = "None"; //store IP for last client, to be used in addLog(string, string)
+        private string loginPasswordSalt="";
 
         public MainFrm()
         {
@@ -39,6 +41,13 @@ namespace AVNC
             
             // Loading values
             getRegistryValues();
+
+            //create a new salt if one doesn't exist
+            if (loginPasswordSalt.Length == 0)
+            {
+                Random random = new Random();
+                loginPasswordSalt = random.Next(1, 99999999).ToString();
+            }
 
             // Applying settings
             if (startListeningCB.Checked) button1_Click(null, null);
@@ -264,6 +273,7 @@ namespace AVNC
             try
             {
                 str = File.ReadAllText(@"login.htm");
+                str = str.Replace("A-VNCloginPasswordSalt", loginPasswordSalt); //replace placeholder in login file with the salt
             }
             catch (FileNotFoundException ex)
             {
@@ -294,7 +304,7 @@ namespace AVNC
                 newStr = new string[] {"", "0", "0", "0"};
             }
 
-            if (newStr[0]!=loginPasswordTB.Text)
+            if (newStr[0]!=hashPassword(loginPasswordTB.Text))
                 return false;
 
             imageCompression = Convert.ToInt32(newStr[1]);
@@ -305,7 +315,21 @@ namespace AVNC
 
             return true;
         }
+        private string hashPassword(string pass)
+        {
+            SHA1Managed sha1 = new SHA1Managed();
+            StringBuilder hPass = new StringBuilder();
 
+            //convert to acsii byte array and pass to sha1 
+            byte[] result = sha1.ComputeHash(Encoding.ASCII.GetBytes(pass.ToString() + loginPasswordSalt));
+            //take result and make string of hex values
+            foreach (byte b in result)
+            {
+                hPass.Append(b.ToString("x2")); //string as hex as 2 digits
+            }
+            //send back the salted hash value
+            return(hPass.ToString());
+        }
         private string mainPage()
         {
             string str = "";
