@@ -68,12 +68,12 @@ namespace AVNC.Classes
             mouse_event(buttonUP, 0, 0, 0, 0);
         }
 
-        public static void sendKeystroke(int key)
+        public static void sendKeystroke(string key)
         {
-            byte[] b = { Convert.ToByte(key) };
-            string str = Encoding.ASCII.GetString(b);
+            //byte[] b = { Convert.ToByte(key) };
+            //string str = Encoding.ASCII.GetString(b);
 
-            SendKeys.SendWait(str);
+            SendKeys.SendWait(key);
         }
     }
 }

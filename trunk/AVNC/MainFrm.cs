@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
+using System.Web;
 using System.Collections;
 using AVNC.Classes;
 using System.IO;
@@ -238,26 +239,18 @@ namespace AVNC
 
         private void doStroke(string str) // process keystroke(s)
         {
-            int key;
-            str = str.Replace("%20", " ");
-            str = str.Split(' ')[2]; // cause its GET[0] /sendStroke[1] xx,xxx,xxx[2]
-            str = str.Trim();
-            Array keystrokes = str.Split(','); //should be an array of keycodes (ints)
-
+            //string key;
+            str = str.Split(' ')[1];
+            str = str.Trim().Substring(14); // cause its GET[0] /sendStroke[1]{x}{x}... [2]http accept
+            str = HttpUtility.UrlDecode(str);
             try
             {
-                foreach (string x in keystrokes) //multiple keystrokes!
-                {
-                    key = Convert.ToInt32(x);
-                    SendMK.sendKeystroke(key);
-                }
-
+                SendMK.sendKeystroke(str.ToString());
             }
             catch (Exception)
             {
-                key = 0;
+                str = "";
             }
-
         }
 
         private int extractImageNumber(string data)
