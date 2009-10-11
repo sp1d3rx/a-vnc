@@ -152,6 +152,7 @@ return utftext;}
 function go()
 {
 	document.cookie = "login="+sha1(document.myForm.password.value+A-VNCloginPasswordSalt)+":"+document.myForm.compression.value+":"+document.myForm.rate.value+":"+document.myForm.size.value;
+	document.myForm.password.value = "";
 	window.location = "AVNC";
 }
 </script>
