@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
@@ -700,14 +701,18 @@ namespace AVNC
             setRegistryValues();
         }
 
-        private void LogMenu_Opening(object sender, CancelEventArgs e)
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            ProcessStartInfo sInfo = new ProcessStartInfo("http://code.google.com/p/a-vnc/");
+            Process.Start(sInfo);
         }
 
-        private void label7_Click(object sender, EventArgs e)
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            ProcessStartInfo sInfo = new ProcessStartInfo("http://www.opensource.org/licenses/mit-license.php");
+            Process.Start(sInfo);
         }
+
+
     }
 }

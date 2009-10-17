@@ -60,7 +60,6 @@ namespace AVNC
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -69,6 +68,7 @@ namespace AVNC
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -393,20 +393,19 @@ namespace AVNC
             this.LogMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.LogMenu.Name = "LogMenu";
-            this.LogMenu.Size = new System.Drawing.Size(111, 26);
-            this.LogMenu.Opening += new System.ComponentModel.CancelEventHandler(this.LogMenu_Opening);
+            this.LogMenu.Size = new System.Drawing.Size(100, 26);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.linkLabel1);
             this.tabPage3.Controls.Add(this.linkLabel3);
-            this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Controls.Add(this.label7);
             this.tabPage3.Controls.Add(this.pictureBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -420,21 +419,13 @@ namespace AVNC
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(17, 91);
+            this.linkLabel3.Location = new System.Drawing.Point(17, 73);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(168, 13);
+            this.linkLabel3.Size = new System.Drawing.Size(98, 13);
             this.linkLabel3.TabIndex = 8;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "http://code.google.com/p/a-vnc/";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 67);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "MIT License";
+            this.linkLabel3.Text = "A-VNC Home Page";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // label7
             // 
@@ -444,8 +435,7 @@ namespace AVNC
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(152, 24);
             this.label7.TabIndex = 1;
-            this.label7.Text = "A-VNC v1.5.2.3";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.label7.Text = "A-VNC v1.5.3.0";
             // 
             // pictureBox1
             // 
@@ -482,26 +472,37 @@ namespace AVNC
             this.toolStripSeparator1,
             this.toolStripMenuItem2});
             this.trayIconMenu.Name = "contextMenuStrip1";
-            this.trayIconMenu.Size = new System.Drawing.Size(110, 54);
+            this.trayIconMenu.Size = new System.Drawing.Size(99, 54);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
             this.toolStripMenuItem1.Text = "Start";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(95, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
             this.toolStripMenuItem2.Text = "Exit";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(283, 73);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(66, 13);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "MIT License";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // MainFrm
             // 
@@ -570,12 +571,12 @@ namespace AVNC
         private System.Windows.Forms.CheckBox startListeningCB;
         private System.Windows.Forms.CheckBox windowsStartupCB;
         private System.Windows.Forms.CheckBox minimizeWindowCB;
-		private System.Windows.Forms.LinkLabel linkLabel3;
-		private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.RadioButton radioBtnIPv6;
         private System.Windows.Forms.RadioButton radioBtnIPv4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox viewOnlyCB;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

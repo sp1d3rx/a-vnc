@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Resources\main.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="AVNC" version="1.5.2.3" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="AVNC" version="1.5.3.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="AVNC.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -59,13 +59,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AVNC.exe" size="298496">
-      <assemblyIdentity name="AVNC" version="1.5.2.3" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="AVNC" version="1.5.3.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zeOR2QmfWLX0DyfFWUNYYx8TPPU=</dsig:DigestValue>
+        <dsig:DigestValue>K22mdLpgDQ9VbM+kxWuPIr6Fjb4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
