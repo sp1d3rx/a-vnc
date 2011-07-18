@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace AVNC.Classes
 {
-    class Log
+    internal class Log
     {
         private string title;
         private string value;

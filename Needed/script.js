@@ -1,14 +1,15 @@
 var rrate = $RRATE;
+var keyrate = 250;
 var mouseX = 0, mouseY = 0, mouseB = 0;
 var dragStartX = 0, dragStartY = 0, dragStartB = 0;
 var dragEndX = 0, dragEndY = 0, dragEndB = 0;
 var freshener = 0;
 var keybuff = "";
-var keyb = setInterval("SendKeys();",250);
+var keyb = setInterval("SendKeys();",keyrate);
 
 
 // This handles the WhatsNew / Refresh Rate for us... setInterval will keep calling the function at the interval. In this case, its "whatsNew"...
-if (rrate>0) setInterval("whatsNew();", rrate*1000);
+if (rrate>0) setInterval("whatsNew();", rrate*200);
 
 if (document.all) // for IE
 {
@@ -76,7 +77,8 @@ function mouseDown(e)
 	dragStartX = mouseX;
 	dragStartY = mouseY;
 	dragStartB = mouseB;
-
+	e.preventDefault();
+	e.stopPropagation();
 	return false;
 }
 
@@ -111,7 +113,8 @@ function mouseUp(e)
 	{
 		send("sendDrag "+dragStartX+" "+dragEndX+" "+dragStartY+" "+dragEndY+" "+mouseB);
 	}
-	
+	e.preventDefault();
+	e.stopPropagation();
 	return false;
 }
 
@@ -175,9 +178,10 @@ function keyDownHandler(e)
 	if (e.shiftKey) kc=kc+"%2B"; //URLencoded
 	if (e.ctrlKey) kc=kc+"%5E";
 	if (e.altKey) kc=kc+"%25";
-	if (e.keyCode) 
+	var keyCode = e.charCode? e.charCode : e.keyCode // ie or fx or anything else...
+	if (keyCode) 
 	{
-		switch (e.keyCode) //keycode converter http://msdn.microsoft.com/en-us/library/system.windows.forms.sendkeys.aspx
+		switch (keyCode) //keycode converter http://msdn.microsoft.com/en-us/library/system.windows.forms.sendkeys.aspx
 		{
 			case 16: 
 			case 17:
@@ -288,12 +292,43 @@ function keyDownHandler(e)
 				break;
 			case 32:
 			    kc=kc+"%20";
-				break
+				break;
+			case 186:
+				kc=kc+"{;}"
+				break;
+			case 187:
+				kc=kc+"{=}"
+				break;
+			case 188:
+				kc=kc+"{,}"
+				break;
+			case 189:
+				kc=kc+"{-}"
+				break;
+			case 190:
+				kc=kc+"{.}"
+				break;
+			case 191:
+				kc=kc+"{/}"
+				break;
+			case 219:
+				kc=kc+"{[}"
+				break;
+//			case 220:
+
+			case 221:
+				kc=kc+"{]}"
+				break;
+			case 222:
+				kc=kc+"{'}"
+				break;
 			default:
-				kc=kc+"{"+String.fromCharCode(e.keyCode).toLowerCase()+"}";
+				kc=kc+"{"+String.fromCharCode(keyCode).toLowerCase()+"}";
 				break;
 		}
-		if (kc) keybuff = keybuff + kc; // otherwise, add a comma before adding your key to the buffer
+		if (kc && kc != "") keybuff = keybuff + kc; // otherwise, add a comma before adding your key to the buffer
+		//else keybuff = keybuff + "," + kc;
+		
 		//if (kc) send("sendStroke " + kc);
 	}
 	if (e.stopPropagation) 
@@ -312,6 +347,8 @@ function keyDownHandler(e)
 	{
 		e.returnValue = false;
 	}
+	if(!(typeof keyb == "undefined")){clearTimeout(keyb);} // if there's a timeout set on SendKeys, clear it...
+	keyb = setTimeout("SendKeys()",keyrate) // set new timeout to 250ms
 	return false;
 }
 
@@ -348,11 +385,21 @@ function send(req)
 */
 function newImages(str)
 {
+	//alert(len(str));
 	var newStr = str.split('\n');
-	freshener = freshener + 1; //ooh right.. this is a much better solution.. sorry :P
-	
+	// new functionality - use client-side caching for speedup. imagenum is folder, imagechk is filename
+	// actually imagenum is tied to location, imagechk is tied to the checksum.
+	if(newStr.length != 1)
+	{
 	for(var i=1; i<newStr.length; i++)
-		document.getElementById(newStr[i]).src = newStr[i]+"?d="+ (++freshener);
+	{
+		stri = newStr[i];
+		slashchar = stri.indexOf('/');
+		imagenum = stri.substr(0,slashchar);
+		imagechk = stri.substr(slashchar+1, stri.length);
+		document.getElementById(imagenum).src = imagenum + '/' + imagechk;
+	}
+	}
 }
 
 function whatsNew()

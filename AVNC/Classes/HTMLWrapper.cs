@@ -1,13 +1,12 @@
 using System;
-using System.Text;
-using System.Net.Sockets;
-using System.IO;
-using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Net.Sockets;
+using System.Text;
 
 namespace AVNC.Classes
 {
-    class HTMLWrapper
+    internal class HTMLWrapper
     {
         private static string title;
 
@@ -26,7 +25,7 @@ namespace AVNC.Classes
                     s.Close();
             }
             catch (Exception)
-            {}
+            { }
         }
 
         public static void sendTEXT(string str, Socket s, int code)
@@ -43,7 +42,6 @@ namespace AVNC.Classes
                 default:
                     header = "HTTP/1.0 200 OK\nContent-Type: text/plain\n\n";
                     break;
-
             }
             send(header, s, false);
             send(str, s, true);
@@ -51,13 +49,7 @@ namespace AVNC.Classes
 
         public static void sendPAGE(string str, Socket s)
         {
-            str = "<html>\n"
-                +"<head><title>" + title + "</title><meta http-equiv=\"imagetoolbar\" content=\"no\" /></head>\n"
-                +"<body><div style='position: absolute; top: 0; left: 0; width:" + System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width + ";'>\n"
-                +str+"\n"
-                +"</div>\n"
-                +"</body>\n"
-                +"</html>";
+            str = String.Format("<html>\n<head><title>{0}</title><meta http-equiv=\"imagetoolbar\" content=\"no\" /></head>\n<body><div style='position: absolute; top: 0; left: 0; width:{1};'>\n{2}\n</div>\n</body>\n</html>", title, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width, str);
             string header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n";
             send(header, s, false);
             send(str, s, true);
@@ -79,7 +71,7 @@ namespace AVNC.Classes
                 contentType = "image/png";
             }
 
-            string header = "HTTP/1.0 200 OK\nContent-Type: " + contentType + "\nAccept-Ranges: none\nExpires: -1\nPragma: no-cache\nCache-Control: no-cache\n\n";
+            string header = String.Format("HTTP/1.0 200 OK\nContent-Type: {0}\nAccept-Ranges: none\nCache-Control: max-age=3600\n\n", contentType);
             send(header, s, false);
             send(ms.ToArray(), s, true); // send image and close...
         }

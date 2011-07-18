@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Net;
-using System.Web;
 using System.Collections;
-using AVNC.Classes;
-using System.IO;
+using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
-using System.Threading;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Web;
+using System.Windows.Forms;
+using AVNC.Classes;
 using Microsoft.Win32;
 
 namespace AVNC
@@ -31,7 +28,7 @@ namespace AVNC
         private int sliceWidth = Screen.PrimaryScreen.Bounds.Width, sliceHeight = Screen.PrimaryScreen.Bounds.Height;
         private Thread listeningThread;
         private string clientIP = "None"; //store IP for last client, to be used in addLog(string, string)
-        private string loginPasswordSalt="";
+        private string loginPasswordSalt = "";
 
         public MainFrm()
         {
@@ -40,7 +37,7 @@ namespace AVNC
             // Handling errors
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(LastChanceHandler);
-            
+
             // Loading values
             getRegistryValues();
 
@@ -58,8 +55,8 @@ namespace AVNC
 
         private void LastChanceHandler(object sender, UnhandledExceptionEventArgs args)
         {
-            Exception e = (Exception) args.ExceptionObject;
-            Invoke(new onAddLog(addLog), "Error", "Unhandled Exception: "+e.Message);
+            Exception e = (Exception)args.ExceptionObject;
+            Invoke(new onAddLog(addLog), "Error", "Unhandled Exception: " + e.Message);
         }
 
         //TODO: restructure this method
@@ -68,7 +65,7 @@ namespace AVNC
         {
             Socket mySocket;
 
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -79,12 +76,12 @@ namespace AVNC
                     mySocket = null;
                 }
 
-                if ((mySocket!=null) && (mySocket.Connected))
+                if ((mySocket != null) && (mySocket.Connected))
                 {
                     Byte[] bReceive = new Byte[1024];
                     string sBuffer;
 
-                    clientIP = ((IPEndPoint)mySocket.RemoteEndPoint).Address.ToString(); 
+                    clientIP = ((IPEndPoint)mySocket.RemoteEndPoint).Address.ToString();
                     // DSW 12/12/2007 thats how (see above)... clientIP = clientIP.Split(':')[0]; //get rid of local port. what's a better way to do this?
 
                     try
@@ -110,11 +107,11 @@ namespace AVNC
                     if ((!sBuffer.StartsWith("GET / ")) && (!validate(sBuffer)))
                     {
                         HTMLWrapper.sendPAGE("Wrong password...", mySocket);
-                        Invoke(new onAddLog(addLog), "Error (WP)", "Wrong Password:" + Environment.NewLine + sBuffer);
+                        Invoke(new onAddLog(addLog), "Error (WP)", String.Format("Wrong Password:{0}{1}", Environment.NewLine, sBuffer));
                         sBuffer = "";
                     }
 
-                    if ( ( sBuffer.StartsWith("GET /sendClick") ) && ( viewOnlyCB.Checked == false ))
+                    if ((sBuffer.StartsWith("GET /sendClick")) && (viewOnlyCB.Checked == false))
                     {
                         doMouseClick(sBuffer);
                         Thread.Sleep(250); //give UI a chance to update after mouse click
@@ -126,7 +123,7 @@ namespace AVNC
 
                         imagesToSend = "IMGS";
                     }
-                    else if ((sBuffer.StartsWith("GET /sendDrag")) && (viewOnlyCB.Checked == false )) // added drag mouse event...
+                    else if ((sBuffer.StartsWith("GET /sendDrag")) && (viewOnlyCB.Checked == false)) // added drag mouse event...
                     {
                         doMouseDrag(sBuffer);
                         Thread.Sleep(250); //give UI a chance to update after mouse drag
@@ -138,7 +135,7 @@ namespace AVNC
 
                         imagesToSend = "IMGS";
                     }
-                    else if ((sBuffer.StartsWith("GET /sendStroke")) && (viewOnlyCB.Checked == false ))
+                    else if ((sBuffer.StartsWith("GET /sendStroke")) && (viewOnlyCB.Checked == false))
                     {
                         doStroke(sBuffer);
                         Thread.Sleep(100); //give UI a chance to update after keystroke
@@ -189,7 +186,6 @@ namespace AVNC
                     {
                         HTMLWrapper.sendPAGE("Unknown request...", mySocket);
                     }
-
                 }
             }
         }
@@ -221,7 +217,6 @@ namespace AVNC
             int startY;
             int endY;
             int button;
-
 
             str = str.Split(' ')[1]; // removes the "GET"
             str = str.Replace("%20", " ");
@@ -272,13 +267,11 @@ namespace AVNC
             catch (FileNotFoundException ex)
             {
                 Invoke(new onAddLog(addLog), "Error", "File Missing: login.htm" + Environment.NewLine + ex.ToString());
-              
             }
-
 
             return str;
         }
-        
+
         private bool validate(string str)
         {
             int i;
@@ -295,10 +288,10 @@ namespace AVNC
             }
             catch
             {
-                newStr = new string[] {"", "0", "0", "0"};
+                newStr = new string[] { "", "0", "0", "0" };
             }
 
-            if (newStr[0]!=hashPassword(loginPasswordTB.Text))
+            if (newStr[0] != hashPassword(loginPasswordTB.Text))
                 return false;
 
             imageCompression = Convert.ToInt32(newStr[1]);
@@ -309,12 +302,13 @@ namespace AVNC
 
             return true;
         }
+
         private string hashPassword(string pass)
         {
             SHA1Managed sha1 = new SHA1Managed();
             StringBuilder hPass = new StringBuilder();
 
-            //convert to acsii byte array and pass to sha1 
+            //convert to acsii byte array and pass to sha1
             byte[] result = sha1.ComputeHash(Encoding.ASCII.GetBytes(pass.ToString() + loginPasswordSalt));
             //take result and make string of hex values
             foreach (byte b in result)
@@ -322,8 +316,9 @@ namespace AVNC
                 hPass.Append(b.ToString("x2")); //string as hex as 2 digits
             }
             //send back the salted hash value
-            return(hPass.ToString());
+            return (hPass.ToString());
         }
+
         private string mainPage()
         {
             string str = "";
@@ -331,18 +326,18 @@ namespace AVNC
             //loading and writing JS files
             try
             {
-                str = "<script>" + File.ReadAllText(@"script.js") + "</script>\n";
+                str = String.Format("<script>{0}</script>\n", File.ReadAllText(@"script.js"));
             }
             catch (FileNotFoundException ex)
             {
-                Invoke(new onAddLog(addLog), "Error", "File Missing: script.js" + Environment.NewLine + ex.ToString());
+                Invoke(new onAddLog(addLog), "Error", String.Format("File Missing: script.js{0}{1}", Environment.NewLine, ex));
             }
             //replace refresh interval
             str = str.Replace("$RRATE", refreshRate.ToString());
 
             //writing image tags
             for (int i = 1; i < pieces.Count; i++)
-                str = str + "<image src='image" + String.Format("{0:000}", i) + "' id='image" + String.Format("{0:000}", i) + "'>";
+                str = String.Format("{0}<image src='image{1}' id='image{1}'>", str, String.Format("{0:000}", i));
 
             return str;
         }
@@ -375,7 +370,6 @@ namespace AVNC
             {
                 for (int currentColumn = 0; currentColumn < screenWidth; currentColumn += sliceWidth) // loop through X
                 {
-
                     if ((currentColumn + currentPieceWidth) > screenWidth) // tiles smaller than slice width
                         currentPieceWidth = screenWidth - currentColumn;
 
@@ -395,6 +389,7 @@ namespace AVNC
 
                             Piece newPiece = new Piece(index, img); // create a new 'piece' object
                             pieces[index] = newPiece;               // replace the current piece in the array.
+                            imagesToSend = imagesToSend + "/" + newPiece.getCheckSum();
                         }
                     }
                     else
@@ -478,7 +473,7 @@ namespace AVNC
                 }
                 catch (Exception ex)
                 {
-                    addLog("Error", "ServerStop: " + ex.ToString());
+                    addLog("Error", String.Format("ServerStop: {0}", ex));
                 }
                 radioBtnIPv6.Enabled = true;
                 radioBtnIPv4.Enabled = true;
@@ -505,7 +500,6 @@ namespace AVNC
             else if (title.StartsWith("Req: /sendStroke"))
                 title = "Keystroke";
 
-
             if ((title == "Index Req.") && (!indexReqCB.Checked))
                 return;
             else if ((title == "Update") && (!updateCB.Checked))
@@ -520,8 +514,8 @@ namespace AVNC
                 return;
             //</This>
 
-            time = DateTime.Now.ToShortDateString()+" "+DateTime.Now.ToShortTimeString();
-            ListViewItem lvi = new ListViewItem(new string[] {clientIP, time, title});
+            time = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            ListViewItem lvi = new ListViewItem(new string[] { clientIP, time, title });
             logLV.Items.Add(lvi);
 
             value = value.Replace(loginPasswordTB.Text, "<PASSWORD>"); // we don't want to show the password in log
@@ -612,12 +606,12 @@ namespace AVNC
                 rk.SetValue("generalSettings", new string(generalCBsettings));
 
                 //<Set> or unset windows startup
-                //eventually you should probably seperate this into seperate try{} since permisions 
+                //eventually you should probably seperate this into seperate try{} since permisions
                 //on this key may differ from permissions above key and handle the failures differently
                 rk = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
                 if (windowsStartupCB.Checked)
-                    rk.SetValue("A-VNC", "\""+Application.ExecutablePath.ToString()+"\"");
+                    rk.SetValue("A-VNC", String.Format("\"{0}\"", Application.ExecutablePath));
                 else
                     rk.DeleteValue("A-VNC", false);
                 //</Set> or unset
@@ -634,9 +628,7 @@ namespace AVNC
                 radioBtnIPv4.Enabled = false;
                 radioBtnIPv6.Enabled = false;
                 viewOnlyCB.Enabled = false;
-
             }
-
         }
 
         private void getRegistryValues()
@@ -667,7 +659,7 @@ namespace AVNC
                 if (generalCBsettings[3] == '1') radioBtnIPv4.Checked = true;
                 if (generalCBsettings[4] == '1') radioBtnIPv6.Checked = true;
                 if (generalCBsettings[5] == '0') viewOnlyCB.Checked = false;
-                
+
                 //</load>
 
                 rk.Close();
@@ -712,7 +704,5 @@ namespace AVNC
             ProcessStartInfo sInfo = new ProcessStartInfo("http://www.opensource.org/licenses/mit-license.php");
             Process.Start(sInfo);
         }
-
-
     }
 }
