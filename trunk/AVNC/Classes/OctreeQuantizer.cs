@@ -3,14 +3,14 @@
  *  http://msdn2.microsoft.com/en-us/library/aa479306.aspx
  */
 
-/* 
-  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
-  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
-  PARTICULAR PURPOSE. 
-  
-    This is sample code and is freely distributable. 
-*/ 
+/*
+  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
+  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  PARTICULAR PURPOSE.
+
+    This is sample code and is freely distributable.
+*/
 
 using System;
 using System.Collections;
@@ -334,7 +334,6 @@ namespace AVNC.Classes
                         // Add the color to the child node
                         child.AddColor(pixel, colorBits, level + 1, octree);
                     }
-
                 }
 
                 /// <summary>
@@ -483,7 +482,6 @@ namespace AVNC.Classes
                 /// The index of this node in the palette
                 /// </summary>
                 private int _paletteIndex;
-
             }
         }
     }
