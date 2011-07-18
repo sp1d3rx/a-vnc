@@ -58,14 +58,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AVNC.exe" size="298496">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AVNC.exe" size="299008">
       <assemblyIdentity name="AVNC" version="1.5.3.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>pNYwWNl5ntz20FwBShDwbyZirFI=</dsig:DigestValue>
+        <dsig:DigestValue>SFLK4yCtmM4iaYleJEe6CHcHx+s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

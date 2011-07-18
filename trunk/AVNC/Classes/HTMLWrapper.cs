@@ -49,7 +49,7 @@ namespace AVNC.Classes
 
         public static void sendPAGE(string str, Socket s)
         {
-            str = String.Format("<html>\n<head><title>{0}</title><meta http-equiv=\"imagetoolbar\" content=\"no\" /></head>\n<body><div style='position: absolute; top: 0; left: 0; width:{1};'>\n{2}\n</div>\n</body>\n</html>", title, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width, str);
+            str = String.Format("<html>\n<head><title>{0}</title><meta http-equiv=\"imagetoolbar\" content=\"no\" /></head>\n<body oncontextmenu=\"return false;\"><div style='position: absolute; top: 0; left: 0; width:{1};'>\n{2}\n</div>\n</body>\n</html>", title, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width, str);
             string header = "HTTP/1.0 200 OK\nContent-Type: text/html\n\n";
             send(header, s, false);
             send(str, s, true);

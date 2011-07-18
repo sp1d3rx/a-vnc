@@ -73,13 +73,9 @@ function mouseDown(e)
 		mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop -2;
 		mouseB = e.button;
 	}
-
 	dragStartX = mouseX;
 	dragStartY = mouseY;
 	dragStartB = mouseB;
-	e.preventDefault();
-	e.stopPropagation();
-	return false;
 }
 
 function mouseUp(e)
@@ -113,9 +109,7 @@ function mouseUp(e)
 	{
 		send("sendDrag "+dragStartX+" "+dragEndX+" "+dragStartY+" "+dragEndY+" "+mouseB);
 	}
-	e.preventDefault();
-	e.stopPropagation();
-	return false;
+	
 }
 
 
