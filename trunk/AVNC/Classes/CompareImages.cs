@@ -3,9 +3,7 @@
  *  http://www.codeproject.com/dotnet/comparingimages.asp
  */
 
-using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Security.Cryptography;
 
 namespace AVNC.Classes // this is specific to AVNC - do not use for other image libraries. (why not?)

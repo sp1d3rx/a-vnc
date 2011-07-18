@@ -3,13 +3,13 @@
  *  http://msdn2.microsoft.com/en-us/library/aa479306.aspx
  */
 
-/* 
-  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
-  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
-  PARTICULAR PURPOSE. 
-  
-    This is sample code and is freely distributable. 
+/*
+  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
+  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  PARTICULAR PURPOSE.
+
+    This is sample code and is freely distributable.
 */
 
 using System;
@@ -82,7 +82,7 @@ namespace AVNC.Classes
                 if (!_singlePass)
                     FirstPass(sourceData, width, height);
 
-                // Then set the color palette on the output bitmap. I'm passing in the current palette 
+                // Then set the color palette on the output bitmap. I'm passing in the current palette
                 // as there's no way to construct a new, empty palette.
                 output.Palette = this.GetPalette(output.Palette);
 
@@ -98,6 +98,7 @@ namespace AVNC.Classes
             // Last but not least, return the output bitmap
             return output;
         }
+
         /// <summary>
         /// Quantize4bpp an image and return the resulting output bitmap - 4BPP mode!
         /// </summary>
@@ -142,7 +143,7 @@ namespace AVNC.Classes
                 if (!_singlePass)
                     FirstPass(sourceData, width, height);
 
-                // Then set the color palette on the output bitmap. I'm passing in the current palette 
+                // Then set the color palette on the output bitmap. I'm passing in the current palette
                 // as there's no way to construct a new, empty palette.
                 output.Palette = this.GetPalette(output.Palette);
 
@@ -158,6 +159,7 @@ namespace AVNC.Classes
             // Last but not least, return the output bitmap
             return output;
         }
+
         /// <summary>
         /// Execute the first pass through the pixels in the image
         /// </summary>
@@ -237,13 +239,10 @@ namespace AVNC.Classes
                             pixelValue = (byte)(highbits + lowbits);
                             *pDestinationPixel = (byte)pixelValue;
                             pDestinationPixel++; // next pixel...
-
                         }
                         pSourceRow += sourceData.Stride;
                         pDestinationRow += outputData.Stride;
                     }
-
-
                 }
                 else // 8bpp...
                 {

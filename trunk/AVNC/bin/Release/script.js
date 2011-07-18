@@ -76,6 +76,7 @@ function mouseDown(e)
 	dragStartX = mouseX;
 	dragStartY = mouseY;
 	dragStartB = mouseB;
+	if (e.preventDefault) e.preventDefault();
 }
 
 function mouseUp(e)
