@@ -6,21 +6,29 @@ var dragEndX = 0, dragEndY = 0, dragEndB = 0;
 var freshener = 0;
 var keybuff = "";
 var keyb = setInterval("SendKeys();",keyrate);
+var focusrrate = rrate;
+var currentRefreshInterval
+
+console.log(keyb);
 
 
 // This handles the WhatsNew / Refresh Rate for us... setInterval will keep calling the function at the interval. In this case, its "whatsNew"...
-if (rrate>0) setInterval("whatsNew();", rrate*200);
+if (rrate>0) currentRefreshInterval = setInterval("whatsNew();", rrate*200);
 
 if (document.all) // for IE
 {
 	document.onmousedown = mouseDown;
 	document.onmouseup = mouseUp;
+	window.onblur =  windowBlurHandler;
+	window.onfocus =  windowFocusHandler;
 }
 else // for FF
 {
 	document.onmousedown = mouseDown;
 	document.onmouseup = mouseUp;
 	document.onclick = FFClick;
+	window.onblur = windowBlurHandler;
+	window.onfocus =  windowFocusHandler;
 }
 
 if(window.addEventListener)
@@ -41,10 +49,9 @@ else
 	document.onkeypress = keyPressHandler;
 	document.onkeyup = keyUpHandler;
 	document.onkeydown = keyDownHandler;
+	//document.onblur = windowBlurHandler;
+	//document.onfocus =  windowFocusHandler;
 }
-
-
-whatsNew();
 
 function FFClick(e)
 {
@@ -142,6 +149,30 @@ function keyUpHandler(e)
 	}
 	return false;
 }
+
+function windowBlurHandler(e)
+{
+if(rrate == focusrrate)
+	rrate = rrate * 20;
+	if (rrate>0) 
+		{
+		clearInterval(currentRefreshInterval);
+		currentRefreshInterval = setInterval("whatsNew();", rrate*200);
+		}
+console.log("Window Blurred - Interval lowered... " + currentRefreshInterval);
+
+return false;	
+}
+
+function windowFocusHandler(e)
+{
+rrate = focusrrate;
+if(currentRefreshInterval) clearInterval(currentRefreshInterval);
+if (rrate>0) currentRefreshInterval = setInterval("whatsNew();", rrate*200);
+console.log("Window Focused - Interval increased... " + currentRefreshInterval);
+return false;
+}
+
 function keyPressHandler(e) 
 {
 	if (!e)
