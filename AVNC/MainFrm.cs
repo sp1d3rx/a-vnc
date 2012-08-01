@@ -78,6 +78,7 @@ namespace AVNC
 
                 if ((mySocket != null) && (mySocket.Connected))
                 {
+                    mySocket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true); // speeds up tcp ...
                     Byte[] bReceive = new Byte[1024];
                     string sBuffer;
 
@@ -404,11 +405,10 @@ namespace AVNC
 
         private Bitmap captureScreen()
         {
-            Bitmap bmpPic = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
-            Graphics grPic = Graphics.FromImage(bmpPic);
-
-            grPic.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size);
-
+            Bitmap bmpPic = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb); // this will hold the data
+            Graphics grPic = Graphics.FromImage(bmpPic); // this tells the graphics object to draw to the bmpPic
+            grPic.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size); // this copies the screen to the bmpPic
+            grPic.Dispose(); // should save some ram...
             return bmpPic;
         }
 
