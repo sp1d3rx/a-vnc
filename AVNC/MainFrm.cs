@@ -9,7 +9,6 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Web;
 using System.Windows.Forms;
 using AVNC.Classes;
 using Microsoft.Win32;
@@ -239,7 +238,7 @@ namespace AVNC
             //string key;
             str = str.Split(' ')[1];
             str = str.Trim().Substring(14); // cause its GET[0] /sendStroke[1]{x}{x}... [2]http accept
-            str = HttpUtility.UrlDecode(str);
+            str = WebUtility.UrlDecode(str);
             try
             {
                 SendMK.sendKeystroke(str.ToString());
