@@ -92,7 +92,7 @@ namespace AVNC
 
                         if (sBuffer.Length > 0)
                         {
-                            if (sBuffer.Split(' ')[1] != "Get /favicon.ico")
+                            if (!sBuffer.StartsWith("GET /favicon.ico"))
                                 Invoke(new onAddLog(addLog), "Req: " + sBuffer.Split(' ')[1], sBuffer);
                             else
                                 sBuffer = "";
