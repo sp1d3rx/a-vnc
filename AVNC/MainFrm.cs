@@ -87,8 +87,8 @@ namespace AVNC
 
                     try
                     {
-                        mySocket.Receive(bReceive, bReceive.Length, 0);
-                        sBuffer = Encoding.ASCII.GetString(bReceive);
+                        int receivedBytes = mySocket.Receive(bReceive, bReceive.Length, SocketFlags.None);
+                        sBuffer = Encoding.ASCII.GetString(bReceive, 0, receivedBytes);
 
                         if (sBuffer.Length > 0)
                         {
